@@ -32,7 +32,7 @@ export default function Footer() {
           {/* Links Section */}
           <div className="flex items-center justify-center space-x-8">
             <a
-              href="https://vedantkankate.com"
+              href="https://vedant-kankate.netlify.app/"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center space-x-2 px-6 py-3 bg-white rounded-xl border border-slate-200 hover:border-emerald-300 hover:shadow-md transition-all duration-200 transform hover:scale-105"
@@ -44,7 +44,7 @@ export default function Footer() {
             </a>
 
             <a
-              href="https://linkedin.com/in/vedantkankate"
+              href="https://www.linkedin.com/in/vedant-kankate/"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
@@ -54,7 +54,7 @@ export default function Footer() {
             </a>
 
             <a
-              href="https://github.com/vedantkankate"
+              href="https://github.com/vedant2402"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center space-x-2 px-6 py-3 bg-slate-800 text-white rounded-xl hover:bg-slate-900 transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
