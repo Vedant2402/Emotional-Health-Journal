@@ -7,7 +7,8 @@ import {
   equalTo,
   onValue,
   off,
-  serverTimestamp
+  serverTimestamp,
+  remove
 } from 'firebase/database';
 import { database } from '../lib/firebase';
 
@@ -104,6 +105,19 @@ export const useFirestore = (userId) => {
     }
   };
 
+  const deleteMoodEntry = async (entryId) => {
+    if (!userId) return { success: false, error: 'User not authenticated' };
+
+    try {
+      const entryRef = ref(database, `moods/${entryId}`);
+      await remove(entryRef);
+      return { success: true };
+    } catch (error) {
+      console.error('Error deleting mood entry:', error);
+      return { success: false, error: error.message };
+    }
+  };
+
   const addJournalEntry = async (entry) => {
     if (!userId) return { success: false, error: 'User not authenticated' };
 
@@ -126,6 +140,7 @@ export const useFirestore = (userId) => {
     journalEntries,
     loading,
     addMoodEntry,
+    deleteMoodEntry,
     addJournalEntry
   };
 };

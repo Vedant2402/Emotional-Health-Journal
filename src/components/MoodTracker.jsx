@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, Sparkles, CheckCircle, Flower2, ChevronRight, Clock, MessageCircle, TrendingUp, BarChart3, History, Eye } from 'lucide-react';
+import { Calendar, Sparkles, CheckCircle, Flower2, ChevronRight, Clock, MessageCircle, TrendingUp, BarChart3, History, Eye, Trash2, AlertTriangle } from 'lucide-react';
 import { useFirestore } from '../hooks/useFirestore';
 import { useAuth } from '../hooks/useAuth';
 
@@ -16,13 +16,15 @@ const moods = [
 
 export default function MoodTracker() {
   const { user } = useAuth();
-  const { moodEntries, addMoodEntry, loading } = useFirestore(user?.id || null);
+  const { moodEntries, addMoodEntry, deleteMoodEntry, loading } = useFirestore(user?.id || null);
   const [selectedMood, setSelectedMood] = useState(null);
   const [note, setNote] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showAllEntries, setShowAllEntries] = useState(false);
   const [viewMode, setViewMode] = useState('recent'); // 'recent' or 'history'
+  const [deleteConfirm, setDeleteConfirm] = useState(null); // ID of entry to delete
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const handleSave = async () => {
     if (!selectedMood || !user) return;
@@ -43,6 +45,23 @@ export default function MoodTracker() {
     }
 
     setIsLoading(false);
+  };
+
+  const handleDelete = async (entryId) => {
+    if (!user || !entryId) return;
+
+    setIsDeleting(true);
+
+    const result = await deleteMoodEntry(entryId);
+
+    if (result.success) {
+      // Show success message
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 2000);
+    }
+
+    setIsDeleting(false);
+    setDeleteConfirm(null);
   };
 
   const formatDate = (dateString) => {
@@ -128,7 +147,52 @@ export default function MoodTracker() {
       {showSuccess && (
         <div className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-green-400 to-emerald-500 text-white px-6 py-3 rounded-full shadow-lg z-50 animate-bounce">
           <CheckCircle className="w-4 h-4 inline mr-2" />
-          Mood saved! Your wellness journey is blooming ✨
+          {deleteConfirm ? 'Mood entry deleted successfully! 🗑️' : 'Mood saved! Your wellness journey is blooming ✨'}
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {deleteConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setDeleteConfirm(null)}></div>
+          <div className="relative bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl border border-red-100">
+            <div className="text-center space-y-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-red-400 to-pink-500 rounded-full flex items-center justify-center mx-auto">
+                <AlertTriangle className="w-8 h-8 text-white" />
+              </div>
+              <div className="space-y-2">
+                <h3 className="text-xl font-bold text-gray-900">Delete Mood Entry?</h3>
+                <p className="text-gray-600">
+                  Are you sure you want to delete this mood entry? This action cannot be undone.
+                </p>
+              </div>
+              <div className="flex space-x-3">
+                <button
+                  onClick={() => setDeleteConfirm(null)}
+                  className="flex-1 px-4 py-3 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition-colors duration-200"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => handleDelete(deleteConfirm)}
+                  disabled={isDeleting}
+                  className="flex-1 px-4 py-3 bg-gradient-to-r from-red-500 to-pink-600 text-white rounded-xl font-medium hover:from-red-600 hover:to-pink-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+                >
+                  {isDeleting ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      <span>Deleting...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Trash2 className="w-4 h-4" />
+                      <span>Delete</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       )}
 
@@ -346,8 +410,17 @@ export default function MoodTracker() {
                           <p className="text-sm text-gray-600">{formatFullDate(entry.date)}</p>
                           <p className="text-xs text-gray-500">{formatTime(entry.date)}</p>
                         </div>
-                        <div className="text-xs text-gray-400 bg-white px-2 py-1 rounded-full">
-                          #{moodEntries.length - index}
+                        <div className="flex items-center space-x-2">
+                          <div className="text-xs text-gray-400 bg-white px-2 py-1 rounded-full">
+                            #{moodEntries.length - index}
+                          </div>
+                          <button
+                            onClick={() => setDeleteConfirm(entry.id)}
+                            className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all duration-200 opacity-0 group-hover:opacity-100"
+                            title="Delete this mood entry"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
                         </div>
                       </div>
                       {entry.note && (
@@ -434,10 +507,19 @@ export default function MoodTracker() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
                         <p className="font-medium text-gray-900 text-sm">{entry.mood.label}</p>
-                        <div className="text-xs text-gray-500 flex items-center space-x-1">
-                          <span>{formatDate(entry.date)}</span>
-                          <span>•</span>
-                          <span>{formatTime(entry.date)}</span>
+                        <div className="flex items-center space-x-1">
+                          <div className="text-xs text-gray-500 flex items-center space-x-1">
+                            <span>{formatDate(entry.date)}</span>
+                            <span>•</span>
+                            <span>{formatTime(entry.date)}</span>
+                          </div>
+                          <button
+                            onClick={() => setDeleteConfirm(entry.id)}
+                            className="p-1 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded transition-all duration-200 opacity-0 group-hover:opacity-100 ml-2"
+                            title="Delete this mood entry"
+                          >
+                            <Trash2 className="w-3 h-3" />
+                          </button>
                         </div>
                       </div>
                       {entry.note && (
