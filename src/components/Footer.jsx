@@ -78,7 +78,7 @@ export default function Footer() {
           {/* Copyright */}
           <div className="space-y-1 sm:space-y-2">
             <p className="text-slate-500 text-xs sm:text-sm">
-              © 2024 Vedant Kankate. All rights reserved.
+              © 2025 Vedant Kankate. All rights reserved.
             </p>
             <p className="text-slate-400 text-xs">
               Built with React, Firebase, and lots of care for mental wellness 🌸
