@@ -1,5 +1,7 @@
 # 🌸 MindBloom - Your Emotional Wellness Journey
 
+## Live - https://e-healthjournal.netlify.app/
+
 <div align="center">
   <img src="https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&w=1200&h=400&fit=crop" alt="MindBloom Banner" width="100%" height="200" style="border-radius: 12px; object-fit: cover;">
   
