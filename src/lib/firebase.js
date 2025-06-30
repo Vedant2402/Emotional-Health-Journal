@@ -3,16 +3,15 @@ import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 import { getAnalytics } from "firebase/analytics";
 
-// Firebase configuration - Replace with your own config
 const firebaseConfig = {
-  apiKey: "your-api-key",
-  authDomain: "your-project.firebaseapp.com",
-  databaseURL: "https://your-project-default-rtdb.firebaseio.com/",
-  projectId: "your-project-id",
-  storageBucket: "your-project.firebasestorage.app",
-  messagingSenderId: "your-sender-id",
-  appId: "your-app-id",
-  measurementId: "your-measurement-id"
+  apiKey: "AIzaSyCD6GM-vdububoEVZmOH5pq16WWXCeT3io",
+  authDomain: "emotional-journal-5cb99.firebaseapp.com",
+  databaseURL: "https://emotional-journal-5cb99-default-rtdb.firebaseio.com/",
+  projectId: "emotional-journal-5cb99",
+  storageBucket: "emotional-journal-5cb99.firebasestorage.app",
+  messagingSenderId: "731796501834",
+  appId: "1:731796501834:web:47145572251a001472fdb3",
+  measurementId: "G-RXH5D4S59R"
 };
 
 // Initialize Firebase
