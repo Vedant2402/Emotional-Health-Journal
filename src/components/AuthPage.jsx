@@ -104,19 +104,19 @@ export default function AuthPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 flex flex-col relative overflow-hidden">
       {/* Header with Vedant Kankate */}
-      <header className="absolute top-0 left-0 right-0 z-20 p-6">
+      <header className="absolute top-0 left-0 right-0 z-20 p-4 sm:p-6">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="text-2xl font-light text-slate-700">
+          <div className="flex items-center space-x-2 sm:space-x-3">
+            <div className="text-lg sm:text-2xl font-light text-slate-700">
               <span className="text-slate-600">Vedant</span>
               <span className="font-medium text-emerald-600 ml-1">Kankate</span>
             </div>
             <div className="hidden sm:block w-px h-6 bg-slate-300"></div>
             <div className="hidden sm:flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center">
-                <Flower2 className="w-4 h-4 text-white" />
+              <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center">
+                <Flower2 className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
               </div>
-              <span className="text-sm text-slate-600 font-medium">MindBloom</span>
+              <span className="text-xs sm:text-sm text-slate-600 font-medium">MindBloom</span>
             </div>
           </div>
           
@@ -130,23 +130,23 @@ export default function AuthPage() {
 
       {/* Floating Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-emerald-200/30 to-teal-200/30 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute bottom-32 right-16 w-48 h-48 bg-gradient-to-br from-blue-200/20 to-cyan-200/20 rounded-full blur-2xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-gradient-to-br from-purple-200/25 to-pink-200/25 rounded-full blur-lg animate-pulse delay-500"></div>
+        <div className="absolute top-20 left-10 w-24 h-24 sm:w-32 sm:h-32 bg-gradient-to-br from-emerald-200/30 to-teal-200/30 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute bottom-32 right-16 w-32 h-32 sm:w-48 sm:h-48 bg-gradient-to-br from-blue-200/20 to-cyan-200/20 rounded-full blur-2xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/4 w-16 h-16 sm:w-24 sm:h-24 bg-gradient-to-br from-purple-200/25 to-pink-200/25 rounded-full blur-lg animate-pulse delay-500"></div>
       </div>
 
       {/* Success Popup */}
       {showSuccessPopup && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/20 backdrop-blur-sm"></div>
-          <div className="relative bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl border border-emerald-100 animate-bounce">
+          <div className="relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-emerald-100 animate-bounce">
             <div className="text-center space-y-4">
-              <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center mx-auto">
-                <CheckCircle2 className="w-10 h-10 text-white" />
+              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center mx-auto">
+                <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
               </div>
               <div className="space-y-2">
-                <h3 className="text-2xl font-bold text-gray-900">Welcome to MindBloom! 🌸</h3>
-                <p className="text-gray-600">Your account has been created successfully. Get ready to start your wellness journey and watch your mind bloom!</p>
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Welcome to MindBloom! 🌸</h3>
+                <p className="text-gray-600 text-sm sm:text-base">Your account has been created successfully. Get ready to start your wellness journey and watch your mind bloom!</p>
               </div>
               <div className="flex items-center justify-center space-x-2 text-emerald-600">
                 <Sparkles className="w-4 h-4" />
@@ -159,7 +159,7 @@ export default function AuthPage() {
       )}
 
       {/* Main Content Area */}
-      <div className="flex-1 flex pt-20">
+      <div className="flex-1 flex pt-16 sm:pt-20">
         {/* Left Side - Hero Section */}
         <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-emerald-400 via-teal-500 to-cyan-600"></div>
@@ -184,11 +184,11 @@ export default function AuthPage() {
               <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6 animate-pulse">
                 <Flower2 className="w-8 h-8 text-white" />
               </div>
-              <h1 className="text-5xl font-light leading-tight mb-6">
+              <h1 className="text-4xl xl:text-5xl font-light leading-tight mb-6">
                 What <span className="font-medium text-emerald-200">great emotional wellness</span><br />
                 feels like for your life
               </h1>
-              <p className="text-xl text-white/80 font-light leading-relaxed">
+              <p className="text-lg xl:text-xl text-white/80 font-light leading-relaxed">
                 Track your moods, journal your thoughts, and discover patterns in your mental health journey. Watch your mind bloom with our beautifully designed platform.
               </p>
             </div>
@@ -206,24 +206,24 @@ export default function AuthPage() {
         </div>
 
         {/* Right Side - Auth Form */}
-        <div className="w-full lg:w-1/2 flex items-center justify-center p-8 relative z-10">
+        <div className="w-full lg:w-1/2 flex items-center justify-center p-4 sm:p-8 relative z-10">
           <div className="w-full max-w-md">
             {/* Mobile Logo */}
-            <div className="lg:hidden text-center mb-12">
-              <div className="w-16 h-16 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-4 animate-pulse">
-                <Flower2 className="w-8 h-8 text-white" />
+            <div className="lg:hidden text-center mb-8 sm:mb-12">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-4 animate-pulse">
+                <Flower2 className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
               </div>
-              <h1 className="text-3xl font-light text-slate-800">
+              <h1 className="text-2xl sm:text-3xl font-light text-slate-800">
                 Mind<span className="font-medium">Bloom</span>
               </h1>
             </div>
 
             {/* Form Header */}
-            <div className="mb-10">
-              <h2 className="text-3xl font-light text-slate-800 mb-3">
+            <div className="mb-8 sm:mb-10">
+              <h2 className="text-2xl sm:text-3xl font-light text-slate-800 mb-3">
                 {isSignUp ? 'Create your account' : 'Welcome back'}
               </h2>
-              <p className="text-slate-500 text-lg font-light">
+              <p className="text-slate-500 text-base sm:text-lg font-light">
                 {isSignUp 
                   ? 'Start your journey to better mental health ✨' 
                   : 'Continue your wellness journey 🌱'
@@ -250,17 +250,17 @@ export default function AuthPage() {
             )}
 
             {/* Auth Form */}
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
               {isSignUp && (
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-slate-700 block">Full Name</label>
                   <div className="relative group">
-                    <User className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-emerald-500 transition-colors" />
+                    <User className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-slate-400 group-focus-within:text-emerald-500 transition-colors" />
                     <input
                       type="text"
                       value={formData.name}
                       onChange={(e) => handleInputChange('name', e.target.value)}
-                      className={`w-full pl-12 pr-4 py-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 text-slate-800 placeholder-slate-400 ${
+                      className={`w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 border border-slate-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 text-slate-800 placeholder-slate-400 text-sm sm:text-base ${
                         errors.name ? 'border-red-300 bg-red-50' : 'bg-white hover:border-slate-300'
                       }`}
                       placeholder="Enter your full name"
@@ -273,12 +273,12 @@ export default function AuthPage() {
               <div className="space-y-2">
                 <label className="text-sm font-medium text-slate-700 block">Email Address</label>
                 <div className="relative group">
-                  <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-emerald-500 transition-colors" />
+                  <Mail className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-slate-400 group-focus-within:text-emerald-500 transition-colors" />
                   <input
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
-                    className={`w-full pl-12 pr-4 py-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 text-slate-800 placeholder-slate-400 ${
+                    className={`w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 border border-slate-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 text-slate-800 placeholder-slate-400 text-sm sm:text-base ${
                       errors.email ? 'border-red-300 bg-red-50' : 'bg-white hover:border-slate-300'
                     }`}
                     placeholder="Enter your email"
@@ -290,12 +290,12 @@ export default function AuthPage() {
               <div className="space-y-2">
                 <label className="text-sm font-medium text-slate-700 block">Password</label>
                 <div className="relative group">
-                  <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-emerald-500 transition-colors" />
+                  <Lock className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-slate-400 group-focus-within:text-emerald-500 transition-colors" />
                   <input
                     type={showPassword ? 'text' : 'password'}
                     value={formData.password}
                     onChange={(e) => handleInputChange('password', e.target.value)}
-                    className={`w-full pl-12 pr-12 py-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 text-slate-800 placeholder-slate-400 ${
+                    className={`w-full pl-10 sm:pl-12 pr-10 sm:pr-12 py-3 sm:py-4 border border-slate-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 text-slate-800 placeholder-slate-400 text-sm sm:text-base ${
                       errors.password ? 'border-red-300 bg-red-50' : 'bg-white hover:border-slate-300'
                     }`}
                     placeholder="Enter your password"
@@ -303,9 +303,9 @@ export default function AuthPage() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                    className="absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
                   >
-                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    {showPassword ? <EyeOff className="w-4 h-4 sm:w-5 sm:h-5" /> : <Eye className="w-4 h-4 sm:w-5 sm:h-5" />}
                   </button>
                 </div>
                 {errors.password && <p className="text-red-500 text-sm flex items-center space-x-1"><AlertCircle className="w-3 h-3" /><span>{errors.password}</span></p>}
@@ -315,12 +315,12 @@ export default function AuthPage() {
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-slate-700 block">Confirm Password</label>
                   <div className="relative group">
-                    <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-emerald-500 transition-colors" />
+                    <Lock className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-slate-400 group-focus-within:text-emerald-500 transition-colors" />
                     <input
                       type={showPassword ? 'text' : 'password'}
                       value={formData.confirmPassword}
                       onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
-                      className={`w-full pl-12 pr-4 py-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 text-slate-800 placeholder-slate-400 ${
+                      className={`w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 border border-slate-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 text-slate-800 placeholder-slate-400 text-sm sm:text-base ${
                         errors.confirmPassword ? 'border-red-300 bg-red-50' : 'bg-white hover:border-slate-300'
                       }`}
                       placeholder="Confirm your password"
@@ -333,27 +333,27 @@ export default function AuthPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-medium py-4 rounded-xl hover:from-emerald-600 hover:to-teal-700 transition-all duration-200 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2 group relative overflow-hidden"
+                className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-medium py-3 sm:py-4 rounded-lg sm:rounded-xl hover:from-emerald-600 hover:to-teal-700 transition-all duration-200 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2 group relative overflow-hidden text-sm sm:text-base"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-teal-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left"></div>
                 <div className="relative flex items-center space-x-2">
                   {isLoading ? (
                     <>
-                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                       <span>{isSignUp ? 'Creating your space...' : 'Signing you in...'}</span>
                     </>
                   ) : (
                     <>
                       <span>{isSignUp ? 'Create Account' : 'Sign In'}</span>
-                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
+                      <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-200" />
                     </>
                   )}
                 </div>
               </button>
             </form>
 
-            <div className="mt-8 text-center">
-              <p className="text-slate-500">
+            <div className="mt-6 sm:mt-8 text-center">
+              <p className="text-slate-500 text-sm sm:text-base">
                 {isSignUp ? 'Already have an account?' : "Don't have an account?"}
                 <button
                   onClick={() => {
@@ -370,9 +370,9 @@ export default function AuthPage() {
             </div>
 
             {/* Footer */}
-            <div className="mt-12 text-center">
-              <p className="text-slate-400 text-sm flex items-center justify-center space-x-2">
-                <Shield className="w-4 h-4" />
+            <div className="mt-8 sm:mt-12 text-center">
+              <p className="text-slate-400 text-xs sm:text-sm flex items-center justify-center space-x-2">
+                <Shield className="w-3 h-3 sm:w-4 sm:h-4" />
                 <span>Your data is secure and encrypted</span>
               </p>
             </div>

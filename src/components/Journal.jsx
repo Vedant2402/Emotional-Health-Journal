@@ -86,48 +86,48 @@ export default function Journal() {
 
   if (isWriting) {
     return (
-      <div className="max-w-3xl mx-auto p-6 space-y-6">
+      <div className="max-w-3xl mx-auto p-4 sm:p-6 space-y-4 sm:space-y-6">
         {showSuccess && (
-          <div className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-green-400 to-emerald-500 text-white px-6 py-3 rounded-full shadow-lg z-50 animate-bounce">
+          <div className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-green-400 to-emerald-500 text-white px-4 sm:px-6 py-3 rounded-full shadow-lg z-50 animate-bounce text-sm sm:text-base">
             <CheckCircle className="w-4 h-4 inline mr-2" />
             Journal entry saved! Your thoughts are blooming ✨
           </div>
         )}
 
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-gray-900">New Journal Entry</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900">New Journal Entry</h2>
           <button
             onClick={() => setIsWriting(false)}
-            className="text-gray-500 hover:text-gray-700"
+            className="text-gray-500 hover:text-gray-700 px-3 py-1 rounded-lg hover:bg-gray-100 transition-colors text-sm sm:text-base"
           >
             Cancel
           </button>
         </div>
 
-        <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-6 border border-emerald-100">
-          <p className="text-sm text-gray-600 mb-2">💭 Writing prompt:</p>
-          <p className="text-emerald-700 font-medium">{currentPrompt}</p>
+        <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-emerald-100">
+          <p className="text-xs sm:text-sm text-gray-600 mb-2">💭 Writing prompt:</p>
+          <p className="text-emerald-700 font-medium text-sm sm:text-base">{currentPrompt}</p>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Give your entry a title..."
-            className="w-full p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-lg font-medium"
+            className="w-full p-3 sm:p-4 border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-base sm:text-lg font-medium"
           />
 
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="Start writing your thoughts..."
-            className="w-full p-4 border border-gray-200 rounded-xl resize-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-            rows={8}
+            className="w-full p-3 sm:p-4 border border-gray-200 rounded-lg sm:rounded-xl resize-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm sm:text-base"
+            rows={6}
           />
 
-          <div className="space-y-3">
-            <p className="text-sm font-medium text-gray-700">How are you feeling? (optional)</p>
+          <div className="space-y-2 sm:space-y-3">
+            <p className="text-xs sm:text-sm font-medium text-gray-700">How are you feeling? (optional)</p>
             <div className="flex flex-wrap gap-2">
               {emotionTags.map((tag) => {
                 const Icon = tag.icon;
@@ -135,7 +135,7 @@ export default function Journal() {
                   <button
                     key={tag.id}
                     onClick={() => handleTagToggle(tag.id)}
-                    className={`px-3 py-2 rounded-full border text-sm font-medium transition-all duration-200 ${
+                    className={`px-2 sm:px-3 py-1.5 sm:py-2 rounded-full border text-xs sm:text-sm font-medium transition-all duration-200 ${
                       selectedTags.includes(tag.id)
                         ? tag.color + ' shadow-sm'
                         : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100'
@@ -153,11 +153,11 @@ export default function Journal() {
             <button
               onClick={handleSave}
               disabled={!content.trim() || isLoading}
-              className="flex-1 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-medium py-3 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:from-emerald-600 hover:to-teal-700 transition-all duration-200 flex items-center justify-center space-x-2"
+              className="flex-1 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-medium py-3 rounded-lg sm:rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:from-emerald-600 hover:to-teal-700 transition-all duration-200 flex items-center justify-center space-x-2 text-sm sm:text-base"
             >
               {isLoading ? (
                 <>
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                   <span>Saving...</span>
                 </>
               ) : (
@@ -171,9 +171,9 @@ export default function Journal() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-8">
+    <div className="max-w-4xl mx-auto p-4 sm:p-6 space-y-6 sm:space-y-8">
       {showSuccess && (
-        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-green-400 to-emerald-500 text-white px-6 py-3 rounded-full shadow-lg z-50 animate-bounce">
+        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-green-400 to-emerald-500 text-white px-4 sm:px-6 py-3 rounded-full shadow-lg z-50 animate-bounce text-sm sm:text-base">
           <CheckCircle className="w-4 h-4 inline mr-2" />
           {deleteConfirm ? 'Journal entry deleted successfully! 🗑️' : 'Journal entry saved! Your thoughts are blooming ✨'}
         </div>
@@ -225,21 +225,21 @@ export default function Journal() {
       )}
 
       <div className="text-center space-y-4">
-        <h2 className="text-3xl font-bold bg-gradient-to-r from-emerald-500 to-teal-600 bg-clip-text text-transparent">
+        <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-emerald-500 to-teal-600 bg-clip-text text-transparent">
           Your Journal
         </h2>
-        <p className="text-gray-600">A safe space for your thoughts and feelings to bloom</p>
+        <p className="text-gray-600 text-sm sm:text-base px-4">A safe space for your thoughts and feelings to bloom</p>
       </div>
 
-      <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-6 border border-emerald-100">
-        <div className="flex items-center justify-between">
-          <div>
-            <h3 className="font-semibold text-gray-900 mb-2">Ready to reflect?</h3>
-            <p className="text-sm text-gray-600 mb-4">{currentPrompt}</p>
+      <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-emerald-100">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
+          <div className="flex-1">
+            <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Ready to reflect?</h3>
+            <p className="text-xs sm:text-sm text-gray-600 mb-4 sm:mb-0">{currentPrompt}</p>
           </div>
           <button
             onClick={() => setIsWriting(true)}
-            className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-6 py-3 rounded-xl font-medium hover:from-emerald-600 hover:to-teal-700 transition-all duration-200 transform hover:scale-105 flex items-center space-x-2"
+            className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-4 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-medium hover:from-emerald-600 hover:to-teal-700 transition-all duration-200 transform hover:scale-105 flex items-center justify-center space-x-2 text-sm sm:text-base w-full sm:w-auto"
           >
             <PenTool className="w-4 h-4" />
             <span>Start Writing</span>
@@ -248,15 +248,15 @@ export default function Journal() {
       </div>
 
       {journalEntries.length > 0 && (
-        <div className="space-y-6">
-          <h3 className="text-xl font-semibold text-gray-900">Recent Entries</h3>
-          <div className="grid gap-6">
+        <div className="space-y-4 sm:space-y-6">
+          <h3 className="text-lg sm:text-xl font-semibold text-gray-900">Recent Entries</h3>
+          <div className="grid gap-4 sm:gap-6">
             {journalEntries.slice(0, 5).map((entry) => (
-              <div key={entry.id} className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-md transition-shadow duration-200 group">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex-1">
-                    <h4 className="font-semibold text-gray-900 mb-1">{entry.title}</h4>
-                    <p className="text-sm text-gray-500">
+              <div key={entry.id} className="bg-white rounded-xl sm:rounded-2xl border border-gray-200 p-4 sm:p-6 hover:shadow-md transition-shadow duration-200 group">
+                <div className="flex items-start justify-between mb-3 sm:mb-4">
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base truncate pr-2">{entry.title}</h4>
+                    <p className="text-xs sm:text-sm text-gray-500">
                       {new Date(entry.date).toLocaleDateString('en-US', {
                         weekday: 'long',
                         month: 'short',
@@ -266,17 +266,17 @@ export default function Journal() {
                   </div>
                   <button
                     onClick={() => setDeleteConfirm(entry.id)}
-                    className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all duration-200 opacity-0 group-hover:opacity-100"
+                    className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all duration-200 opacity-0 group-hover:opacity-100 flex-shrink-0"
                     title="Delete this journal entry"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
                 
-                <p className="text-gray-700 mb-4 line-clamp-3">{entry.content}</p>
+                <p className="text-gray-700 mb-3 sm:mb-4 line-clamp-3 text-sm sm:text-base">{entry.content}</p>
                 
                 {entry.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
                     {entry.tags.map((tagId) => {
                       const tag = emotionTags.find(t => t.id === tagId);
                       if (!tag) return null;
@@ -297,15 +297,15 @@ export default function Journal() {
       )}
 
       {journalEntries.length === 0 && (
-        <div className="text-center py-12">
-          <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-4">
-            <PenTool className="w-8 h-8 text-white" />
+        <div className="text-center py-8 sm:py-12">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-4">
+            <PenTool className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
           </div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">Start Your Journey</h3>
-          <p className="text-gray-600 mb-6">Your first journal entry is just a click away - let your thoughts bloom</p>
+          <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">Start Your Journey</h3>
+          <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base px-4">Your first journal entry is just a click away - let your thoughts bloom</p>
           <button
             onClick={() => setIsWriting(true)}
-            className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-8 py-3 rounded-xl font-medium hover:from-emerald-600 hover:to-teal-700 transition-all duration-200 transform hover:scale-105"
+            className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-medium hover:from-emerald-600 hover:to-teal-700 transition-all duration-200 transform hover:scale-105 text-sm sm:text-base"
           >
             Write Your First Entry
           </button>
