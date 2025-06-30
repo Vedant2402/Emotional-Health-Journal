@@ -4,7 +4,11 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-  updateProfile
+  updateProfile,
+  updateEmail,
+  updatePassword,
+  reauthenticateWithCredential,
+  EmailAuthProvider
 } from 'firebase/auth';
 import { auth } from '../lib/firebase';
 
@@ -54,6 +58,55 @@ export const useAuth = () => {
     }
   };
 
+  const updateUserProfile = async (updates) => {
+    try {
+      const currentUser = auth.currentUser;
+      if (!currentUser) {
+        return { success: false, error: 'No user is currently signed in' };
+      }
+
+      // Handle password update
+      if (updates.newPassword && updates.currentPassword) {
+        // Re-authenticate user before changing password
+        const credential = EmailAuthProvider.credential(
+          currentUser.email,
+          updates.currentPassword
+        );
+        
+        await reauthenticateWithCredential(currentUser, credential);
+        await updatePassword(currentUser, updates.newPassword);
+        
+        return { success: true };
+      }
+
+      // Handle profile updates (name and/or email)
+      if (updates.name !== undefined || updates.email !== undefined) {
+        const profileUpdates = {};
+        
+        if (updates.name !== undefined) {
+          profileUpdates.displayName = updates.name;
+        }
+        
+        // Update profile first
+        if (Object.keys(profileUpdates).length > 0) {
+          await updateProfile(currentUser, profileUpdates);
+        }
+        
+        // Update email if provided and different from current
+        if (updates.email && updates.email !== currentUser.email) {
+          await updateEmail(currentUser, updates.email);
+        }
+        
+        return { success: true };
+      }
+
+      return { success: false, error: 'No updates provided' };
+    } catch (error) {
+      console.error('Update profile error:', error);
+      return { success: false, error: error.message };
+    }
+  };
+
   const logout = async () => {
     try {
       await signOut(auth);
@@ -69,6 +122,7 @@ export const useAuth = () => {
     loading,
     signUp,
     signIn,
+    updateUserProfile,
     logout
   };
 };
