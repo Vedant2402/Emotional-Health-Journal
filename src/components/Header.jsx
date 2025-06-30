@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { Flower2, Sparkles, LogOut, User, BarChart3, Menu, X } from 'lucide-react';
+import { Flower2, Sparkles, LogOut, User, BarChart3, Menu, X, Settings } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { useFirestore } from '../hooks/useFirestore';
+import ProfileEdit from './ProfileEdit';
 
 export default function Header({ currentView, onViewChange }) {
   const { user, logout } = useAuth();
   const { moodEntries } = useFirestore(user?.id || null);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [showProfileEdit, setShowProfileEdit] = useState(false);
 
   const navItems = [
     { id: 'mood', label: 'Mood', icon: Flower2 },
@@ -17,6 +19,12 @@ export default function Header({ currentView, onViewChange }) {
 
   const handleLogout = async () => {
     await logout();
+    setShowUserMenu(false);
+    setShowMobileMenu(false);
+  };
+
+  const handleEditProfile = () => {
+    setShowProfileEdit(true);
     setShowUserMenu(false);
     setShowMobileMenu(false);
   };
@@ -190,6 +198,14 @@ export default function Header({ currentView, onViewChange }) {
                     </div>
                     
                     <button
+                      onClick={handleEditProfile}
+                      className="w-full flex items-center space-x-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 transition-colors duration-200"
+                    >
+                      <Settings className="w-4 h-4" />
+                      <span>Edit Profile</span>
+                    </button>
+                    
+                    <button
                       onClick={handleLogout}
                       className="w-full flex items-center space-x-3 px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 transition-colors duration-200"
                     >
@@ -247,6 +263,14 @@ export default function Header({ currentView, onViewChange }) {
                 </div>
                 
                 <button
+                  onClick={handleEditProfile}
+                  className="w-full flex items-center space-x-3 px-3 py-3 text-sm text-slate-700 hover:bg-slate-50 rounded-lg transition-colors duration-200 mt-2"
+                >
+                  <Settings className="w-4 h-4" />
+                  <span>Edit Profile</span>
+                </button>
+                
+                <button
                   onClick={handleLogout}
                   className="w-full flex items-center space-x-3 px-3 py-3 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200 mt-2"
                 >
@@ -268,6 +292,11 @@ export default function Header({ currentView, onViewChange }) {
             setShowMobileMenu(false);
           }}
         />
+      )}
+
+      {/* Profile Edit Modal */}
+      {showProfileEdit && (
+        <ProfileEdit onClose={() => setShowProfileEdit(false)} />
       )}
     </>
   );
