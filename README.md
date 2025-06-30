@@ -308,33 +308,6 @@ We welcome contributions to make MindBloom even better! Here's how you can help:
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🙏 Acknowledgments
-
-- **Firebase** for providing excellent backend services
-- **Tailwind CSS** for the utility-first CSS framework
-- **Lucide** for beautiful icons
-- **Pexels** for stunning stock photography
-- **React community** for continuous innovation
-
----
-
-## 📞 Support
-
-If you encounter any issues or have questions:
-
-1. **Check the Issues** - Look for existing solutions
-2. **Create an Issue** - Describe your problem clearly
-3. **Join Discussions** - Share ideas and feedback
-4. **Contact Creator** - Reach out via LinkedIn or portfolio
-
----
-
 <div align="center">
   <h3>🌸 Start your wellness journey today with MindBloom! 🌸</h3>
   <p><em>Your mind deserves to bloom.</em></p>
