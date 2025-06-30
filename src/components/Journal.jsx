@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PenTool, Heart, Star, Zap, Coffee, CheckCircle, Flower2 } from 'lucide-react';
+import { PenTool, Heart, Star, Zap, Coffee, CheckCircle, Flower2, Trash2, AlertTriangle } from 'lucide-react';
 import { useFirestore } from '../hooks/useFirestore';
 import { useAuth } from '../hooks/useAuth';
 
@@ -24,7 +24,7 @@ const prompts = [
 
 export default function Journal() {
   const { user } = useAuth();
-  const { journalEntries, addJournalEntry } = useFirestore(user?.id || null);
+  const { journalEntries, addJournalEntry, deleteJournalEntry } = useFirestore(user?.id || null);
   const [isWriting, setIsWriting] = useState(false);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -32,6 +32,8 @@ export default function Journal() {
   const [currentPrompt] = useState(prompts[Math.floor(Math.random() * prompts.length)]);
   const [isLoading, setIsLoading] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [deleteConfirm, setDeleteConfirm] = useState(null); // ID of entry to delete
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const handleTagToggle = (tagId) => {
     setSelectedTags(prev =>
@@ -63,6 +65,23 @@ export default function Journal() {
     }
 
     setIsLoading(false);
+  };
+
+  const handleDelete = async (entryId) => {
+    if (!user || !entryId) return;
+
+    setIsDeleting(true);
+
+    const result = await deleteJournalEntry(entryId);
+
+    if (result.success) {
+      // Show success message
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 2000);
+    }
+
+    setIsDeleting(false);
+    setDeleteConfirm(null);
   };
 
   if (isWriting) {
@@ -153,6 +172,58 @@ export default function Journal() {
 
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-8">
+      {showSuccess && (
+        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-green-400 to-emerald-500 text-white px-6 py-3 rounded-full shadow-lg z-50 animate-bounce">
+          <CheckCircle className="w-4 h-4 inline mr-2" />
+          {deleteConfirm ? 'Journal entry deleted successfully! 🗑️' : 'Journal entry saved! Your thoughts are blooming ✨'}
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {deleteConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setDeleteConfirm(null)}></div>
+          <div className="relative bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl border border-red-100">
+            <div className="text-center space-y-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-red-400 to-pink-500 rounded-full flex items-center justify-center mx-auto">
+                <AlertTriangle className="w-8 h-8 text-white" />
+              </div>
+              <div className="space-y-2">
+                <h3 className="text-xl font-bold text-gray-900">Delete Journal Entry?</h3>
+                <p className="text-gray-600">
+                  Are you sure you want to delete this journal entry? This action cannot be undone and you'll lose all your thoughts and reflections.
+                </p>
+              </div>
+              <div className="flex space-x-3">
+                <button
+                  onClick={() => setDeleteConfirm(null)}
+                  className="flex-1 px-4 py-3 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition-colors duration-200"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => handleDelete(deleteConfirm)}
+                  disabled={isDeleting}
+                  className="flex-1 px-4 py-3 bg-gradient-to-r from-red-500 to-pink-600 text-white rounded-xl font-medium hover:from-red-600 hover:to-pink-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+                >
+                  {isDeleting ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      <span>Deleting...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Trash2 className="w-4 h-4" />
+                      <span>Delete</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="text-center space-y-4">
         <h2 className="text-3xl font-bold bg-gradient-to-r from-emerald-500 to-teal-600 bg-clip-text text-transparent">
           Your Journal
@@ -181,9 +252,9 @@ export default function Journal() {
           <h3 className="text-xl font-semibold text-gray-900">Recent Entries</h3>
           <div className="grid gap-6">
             {journalEntries.slice(0, 5).map((entry) => (
-              <div key={entry.id} className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-md transition-shadow duration-200">
+              <div key={entry.id} className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-md transition-shadow duration-200 group">
                 <div className="flex items-start justify-between mb-4">
-                  <div>
+                  <div className="flex-1">
                     <h4 className="font-semibold text-gray-900 mb-1">{entry.title}</h4>
                     <p className="text-sm text-gray-500">
                       {new Date(entry.date).toLocaleDateString('en-US', {
@@ -193,6 +264,13 @@ export default function Journal() {
                       })}
                     </p>
                   </div>
+                  <button
+                    onClick={() => setDeleteConfirm(entry.id)}
+                    className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all duration-200 opacity-0 group-hover:opacity-100"
+                    title="Delete this journal entry"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
                 </div>
                 
                 <p className="text-gray-700 mb-4 line-clamp-3">{entry.content}</p>

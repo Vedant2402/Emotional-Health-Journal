@@ -135,12 +135,26 @@ export const useFirestore = (userId) => {
     }
   };
 
+  const deleteJournalEntry = async (entryId) => {
+    if (!userId) return { success: false, error: 'User not authenticated' };
+
+    try {
+      const entryRef = ref(database, `journals/${entryId}`);
+      await remove(entryRef);
+      return { success: true };
+    } catch (error) {
+      console.error('Error deleting journal entry:', error);
+      return { success: false, error: error.message };
+    }
+  };
+
   return {
     moodEntries,
     journalEntries,
     loading,
     addMoodEntry,
     deleteMoodEntry,
-    addJournalEntry
+    addJournalEntry,
+    deleteJournalEntry
   };
 };
