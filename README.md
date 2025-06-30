@@ -15,53 +15,65 @@
 
 ## ✨ Features
 
-### 🎭 **Mood Tracking**
+### 🎭 **Advanced Mood Tracking**
 - **8 Distinct Moods**: From "Blooming" 🌸 to "Anxious" 😰 with beautiful gradient designs
-- **Special Animations**: Unique visual effects for "Blooming" and "Amazing" moods
+- **Special Animations**: Unique visual effects for "Blooming" (floating petals) and "Amazing" (sparkle effects)
 - **Weekly Overview**: Visual representation of your emotional journey over the past 7 days
 - **Contextual Notes**: Add personal notes to each mood entry for deeper reflection
 - **Real-time Sync**: All mood data syncs instantly across devices
+- **Complete History**: View all your mood entries with timestamps and delete functionality
+- **Quick Stats**: Track total check-ins, weekly activity, and current streaks
 
-### 📝 **Journaling**
-- **Rich Text Editor**: Clean, distraction-free writing environment
-- **Emotion Tags**: Categorize entries with feelings like Grateful, Excited, Motivated, etc.
-- **Writing Prompts**: Daily inspirational prompts to spark reflection
-- **Entry History**: Browse and revisit all your past journal entries
-- **Auto-save**: Never lose your thoughts with automatic saving
+### 📝 **Rich Journaling Experience**
+- **Clean Text Editor**: Distraction-free writing environment with auto-save
+- **Emotion Tags**: Categorize entries with 6 predefined feelings (Grateful, Excited, Motivated, Peaceful, Creative, Blooming)
+- **Daily Writing Prompts**: Rotating inspirational prompts to spark reflection
+- **Entry Management**: Browse, search, and delete past journal entries
+- **Beautiful UI**: Elegant cards with hover effects and responsive design
 
-### 📊 **Analytics & Insights**
+### 📊 **Comprehensive Analytics & Insights**
 - **Mood Statistics**: Track your most common emotions and patterns
-- **Streak Tracking**: Monitor your consistency with current and longest streaks
-- **Visual Charts**: Beautiful data visualization of your emotional journey
-- **Progress Metrics**: See your total check-ins and weekly activity
+- **Weekly Mood Chart**: Visual representation of your emotional journey
+- **Streak Tracking**: Monitor current and longest consecutive tracking periods
+- **Progress Metrics**: Total entries, weekly activity, and trend analysis
+- **Mood Breakdown**: Percentage distribution with beautiful progress bars
 - **Personalized Affirmations**: Daily positive messages to encourage your wellness journey
 
-### 🔐 **Authentication & Security**
-- **Secure Sign-up/Sign-in**: Email and password authentication via Firebase
-- **User Profiles**: Personalized experience with display names and avatars
+### 👤 **Complete Profile Management**
+- **Profile Editing**: Update display name and email address
+- **Security Settings**: Change password with current password verification
+- **Two-Tab Interface**: Separate sections for Profile and Security settings
+- **Real-time Validation**: Instant feedback on form inputs
+- **Beautiful Modal Design**: Consistent with app's aesthetic
+
+### 🔐 **Secure Authentication & Data**
+- **Email/Password Authentication**: Secure sign-up and sign-in via Firebase
+- **User Profiles**: Personalized experience with display names
 - **Data Privacy**: Your emotional data is encrypted and securely stored
 - **Session Management**: Automatic session handling with persistent login
+- **Profile Updates**: Secure profile and password management
 
-### 🎨 **Beautiful Design**
-- **Apple-level Aesthetics**: Clean, sophisticated, and intuitive interface
+### 🎨 **Apple-Level Design Aesthetics**
 - **Responsive Design**: Perfect experience on mobile, tablet, and desktop
 - **Smooth Animations**: Delightful micro-interactions and transitions
 - **Gradient Themes**: Beautiful color schemes that promote calm and positivity
 - **Accessibility**: High contrast ratios and keyboard navigation support
+- **Loading States**: Beautiful loading animations and feedback
+- **Special Effects**: Unique animations for different mood states
 
 ---
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+ and npm
-- Firebase account (for backend services)
+- **Node.js 18+** and npm
+- **Firebase account** (for backend services)
 
 ### Installation
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/vedantkankate/mindbloom.git
+   git clone https://github.com/yourusername/mindbloom.git
    cd mindbloom
    ```
 
@@ -72,9 +84,9 @@
 
 3. **Set up Firebase**
    - Create a new Firebase project at [Firebase Console](https://console.firebase.google.com/)
-   - Enable Authentication (Email/Password)
-   - Enable Realtime Database
-   - Copy your Firebase config
+   - Enable **Authentication** (Email/Password)
+   - Enable **Realtime Database**
+   - Copy your Firebase configuration
 
 4. **Configure Firebase**
    - Open `src/lib/firebase.js`
@@ -92,12 +104,34 @@
    };
    ```
 
-5. **Start the development server**
+5. **Set up Firebase Database Rules**
+   ```json
+   {
+     "rules": {
+       "moods": {
+         ".read": "auth != null",
+         ".write": "auth != null",
+         "$uid": {
+           ".validate": "newData.child('userId').val() === auth.uid"
+         }
+       },
+       "journals": {
+         ".read": "auth != null",
+         ".write": "auth != null",
+         "$uid": {
+           ".validate": "newData.child('userId').val() === auth.uid"
+         }
+       }
+     }
+   }
+   ```
+
+6. **Start the development server**
    ```bash
    npm run dev
    ```
 
-6. **Open your browser**
+7. **Open your browser**
    - Navigate to `http://localhost:5173`
    - Create an account and start your wellness journey! 🌱
 
@@ -109,13 +143,14 @@
 mindbloom/
 ├── src/
 │   ├── components/           # React components
-│   │   ├── Analytics.jsx     # Insights and statistics
+│   │   ├── Analytics.jsx     # Insights and statistics dashboard
 │   │   ├── AuthPage.jsx      # Authentication interface
 │   │   ├── Footer.jsx        # App footer with creator info
 │   │   ├── Header.jsx        # Navigation and user menu
 │   │   ├── Journal.jsx       # Journaling interface
 │   │   ├── LoadingScreen.jsx # Beautiful loading animation
-│   │   └── MoodTracker.jsx   # Mood tracking interface
+│   │   ├── MoodTracker.jsx   # Mood tracking interface
+│   │   └── ProfileEdit.jsx   # Profile management modal
 │   ├── hooks/               # Custom React hooks
 │   │   ├── useAuth.js       # Authentication logic
 │   │   └── useFirestore.js  # Database operations
@@ -142,7 +177,7 @@ mindbloom/
 - **Lucide React** - Beautiful, customizable icons
 
 ### **Backend & Services**
-- **Firebase Authentication** - Secure user authentication
+- **Firebase Authentication** - Secure user authentication with email/password
 - **Firebase Realtime Database** - Real-time data synchronization
 - **Firebase Analytics** - User behavior insights
 
@@ -190,13 +225,15 @@ Each mood features:
 - Special animations for "Blooming" and "Amazing"
 - Contextual note-taking capability
 - Historical tracking and visualization
+- Delete functionality for data management
 
 ### **Journal System**
 The journaling feature includes:
 - **Writing Prompts**: Rotating daily questions to inspire reflection
 - **Emotion Tags**: 6 predefined tags (Grateful, Excited, Motivated, Peaceful, Creative, Blooming)
 - **Rich Formatting**: Clean text editor with focus on content
-- **Entry Management**: Browse, search, and revisit past entries
+- **Entry Management**: Browse, search, and delete past entries
+- **Auto-save**: Never lose your thoughts with automatic saving
 
 ### **Analytics Dashboard**
 Comprehensive insights including:
@@ -206,6 +243,14 @@ Comprehensive insights including:
 - **Progress Metrics**: Total entries, weekly activity, and trends
 - **Motivational Content**: Daily affirmations and encouragement
 
+### **Profile Management**
+Complete account control with:
+- **Profile Tab**: Update display name and email address
+- **Security Tab**: Change password with verification
+- **Real-time Validation**: Instant feedback on form inputs
+- **Beautiful UI**: Modal design consistent with app aesthetic
+- **Secure Updates**: Firebase authentication integration
+
 ---
 
 ## 🔧 Configuration
@@ -213,27 +258,8 @@ Comprehensive insights including:
 ### **Firebase Setup**
 1. Create a Firebase project
 2. Enable Authentication with Email/Password
-3. Set up Realtime Database with these rules:
-   ```json
-   {
-     "rules": {
-       "moods": {
-         ".read": "auth != null",
-         ".write": "auth != null",
-         "$uid": {
-           ".validate": "newData.child('userId').val() === auth.uid"
-         }
-       },
-       "journals": {
-         ".read": "auth != null",
-         ".write": "auth != null",
-         "$uid": {
-           ".validate": "newData.child('userId').val() === auth.uid"
-         }
-       }
-     }
-   }
-   ```
+3. Set up Realtime Database with security rules
+4. Copy configuration to `src/lib/firebase.js`
 
 ### **Environment Variables**
 No environment variables needed - Firebase config is directly in the code for simplicity.
@@ -252,6 +278,14 @@ npm run build
 npm run preview
 ```
 
+### **Deploy to Netlify/Vercel**
+1. Connect your GitHub repository
+2. Set build command: `npm run build`
+3. Set publish directory: `dist`
+4. Deploy automatically on push
+
+---
+
 ## 🤝 Contributing
 
 We welcome contributions to make MindBloom even better! Here's how you can help:
@@ -264,9 +298,23 @@ We welcome contributions to make MindBloom even better! Here's how you can help:
 5. Commit: `git commit -m 'Add amazing feature'`
 6. Push: `git push origin feature/amazing-feature`
 7. Open a Pull Request
+
+### **Development Guidelines**
+- Follow the existing code style
+- Add comments for complex logic
+- Test on multiple screen sizes
+- Ensure accessibility compliance
+- Update documentation as needed
+
+---
+
 <div align="center">
   <h3>🌸 Start your wellness journey today with MindBloom! 🌸</h3>
   <p><em>Your mind deserves to bloom.</em></p>
   
-  **Made with ❤️ by Vedant Kankate**
+  **Made with ❤️ by [Vedant Kankate](https://vedant-kankate.netlify.app/)**
+  
+  [![Portfolio](https://img.shields.io/badge/Portfolio-Visit-brightgreen?style=for-the-badge)](https://vedant-kankate.netlify.app/)
+  [![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/vedant-kankate/)
+  [![GitHub](https://img.shields.io/badge/GitHub-Follow-black?style=for-the-badge&logo=github)](https://github.com/vedant2402)
 </div>
