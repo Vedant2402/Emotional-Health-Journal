@@ -225,8 +225,8 @@ export default function AuthPage() {
               </h2>
               <p className="text-slate-500 text-base sm:text-lg font-light">
                 {isSignUp 
-                  ? 'Start your journey to better mental health ✨' 
-                  : 'Continue your wellness journey 🌱'
+                  ? 'Begin your personal recovery diary ✨' 
+                  : 'Continue your healing journey 🌱'
                 }
               </p>
             </div>
