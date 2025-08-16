@@ -120,11 +120,14 @@ export default function Analytics() {
   const streakData = getStreakData();
 
   const affirmations = [
-    "You're doing great by taking care of your mental health! 💖",
-    "Every day you track your mood is a step toward self-awareness ✨",
-    "Your feelings are valid and worthy of attention 🌸",
-    "You're building healthy habits that will last a lifetime 🌟",
-    "Your mind is blooming with each moment of mindfulness 🌺",
+    "You're taking important steps in your recovery journey! 💖",
+    "Every entry you write is progress toward healing ✨",
+    "Your feelings are valid and you deserve support 🌸",
+    "You're stronger than you know, and you're not alone 🌟",
+    "Each day you choose to reflect is a day you choose growth 🌺",
+    "Your recovery matters, and so do you 💚",
+    "Small steps forward are still steps forward 🦋",
+    "You have the courage to face your feelings - that's powerful 🌈",
   ];
 
   const randomAffirmation = affirmations[Math.floor(Math.random() * affirmations.length)];

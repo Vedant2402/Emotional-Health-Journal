@@ -209,7 +209,7 @@ export default function MoodTracker() {
             <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-emerald-500 to-teal-600 bg-clip-text text-transparent">
               How are you feeling today?
             </h2>
-            <p className="text-gray-600 text-sm sm:text-base px-4">Take a moment to check in with yourself and let your mind bloom</p>
+            <p className="text-gray-600 text-sm sm:text-base px-4">Take a moment to check in with yourself - your feelings matter and are valid</p>
           </div>
 
           {/* Mood Grid - Responsive */}

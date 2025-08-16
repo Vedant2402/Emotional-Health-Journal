@@ -216,6 +216,7 @@ export default function AuthPage() {
               <h1 className="text-2xl sm:text-3xl font-light text-slate-800">
                 Mind<span className="font-medium">Bloom</span>
               </h1>
+              <p className="text-slate-600 text-sm">Your personal digital diary</p>
             </div>
 
             {/* Form Header */}
@@ -225,8 +226,8 @@ export default function AuthPage() {
               </h2>
               <p className="text-slate-500 text-base sm:text-lg font-light">
                 {isSignUp 
-                  ? 'Begin your personal recovery diary ✨' 
-                  : 'Continue your healing journey 🌱'
+                  ? 'Start your journey to better mental health ✨' 
+                  : 'Continue your wellness journey 🌱'
                 }
               </p>
             </div>

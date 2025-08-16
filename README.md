@@ -178,7 +178,7 @@ mindbloom/
 
 ### **Backend & Services**
 - **Firebase Authentication** - Secure user authentication with email/password
-- **Firebase Realtime Database** - Real-time data synchronization
+- **Firebase Firestore** - Secure, scalable NoSQL database with real-time sync
 - **Firebase Analytics** - User behavior insights
 
 ### **Development Tools**

@@ -13,13 +13,15 @@ const emotionTags = [
 ];
 
 const prompts = [
-  "What made you smile today?",
-  "What are you grateful for right now?",
-  "Describe a moment when you felt proud of yourself",
-  "What's something new you learned today?",
-  "What would you tell your past self?",
-  "What are you looking forward to?",
-  "How did your mind bloom today?",
+  "What small victory did you achieve today?",
+  "What are three things you're grateful for right now?",
+  "Describe a moment when you felt at peace today",
+  "What positive thought can you hold onto?",
+  "How did you take care of yourself today?",
+  "What would you tell someone going through similar struggles?",
+  "What progress, no matter how small, did you make today?",
+  "What made you feel hopeful or optimistic?",
+  "How are you being kind to yourself today?",
 ];
 
 export default function Journal() {

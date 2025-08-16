@@ -81,7 +81,7 @@ export default function Footer() {
               © 2025 Vedant Kankate. All rights reserved.
             </p>
             <p className="text-slate-400 text-xs">
-              Built with React, Firebase, and lots of care for mental wellness 🌸
+              Built with React, Firebase, and deep care for mental health recovery 🌸
             </p>
           </div>
 
