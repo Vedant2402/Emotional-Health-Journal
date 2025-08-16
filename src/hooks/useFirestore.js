@@ -10,7 +10,7 @@ import {
   serverTimestamp,
   remove
 } from 'firebase/database';
-import { database } from '../lib/firebase';
+import { database, auth } from '../lib/firebase';
 
 export const useFirestore = (userId) => {
   const [moodEntries, setMoodEntries] = useState([]);
@@ -19,7 +19,7 @@ export const useFirestore = (userId) => {
 
   // Subscribe to mood entries
   useEffect(() => {
-    if (!userId) {
+    if (!userId || !auth.currentUser) {
       setMoodEntries([]);
       setLoading(false);
       return;
@@ -56,8 +56,9 @@ export const useFirestore = (userId) => {
 
   // Subscribe to journal entries
   useEffect(() => {
-    if (!userId) {
+    if (!userId || !auth.currentUser) {
       setJournalEntries([]);
+      setLoading(false);
       return;
     }
 
@@ -80,9 +81,11 @@ export const useFirestore = (userId) => {
       } else {
         setJournalEntries([]);
       }
+      setLoading(false);
     }, (error) => {
       console.error('Error fetching journal entries:', error);
       setJournalEntries([]);
+      setLoading(false);
     });
 
     return () => off(journalQuery, 'value', unsubscribe);

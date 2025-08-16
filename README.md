@@ -111,17 +111,15 @@
    {
      "rules": {
        "moods": {
-         ".read": "auth != null",
-         ".write": "auth != null",
-         "$uid": {
-           ".validate": "newData.child('userId').val() === auth.uid"
+         "$moodId": {
+           ".read": "data.child('userId').val() === auth.uid",
+           ".write": "newData.child('userId').val() === auth.uid"
          }
        },
        "journals": {
-         ".read": "auth != null",
-         ".write": "auth != null",
-         "$uid": {
-           ".validate": "newData.child('userId').val() === auth.uid"
+         "$journalId": {
+           ".read": "data.child('userId').val() === auth.uid",
+           ".write": "newData.child('userId').val() === auth.uid"
          }
        }
      }
