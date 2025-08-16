@@ -4,9 +4,11 @@ import { getDatabase } from "firebase/database";
 import { getFirestore } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 
+// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyB62f1fOCXlPkSUz2ozkC8zvaroVDkKz7A",
   authDomain: "mindbloom-8f45a.firebaseapp.com",
+  databaseURL: "https://mindbloom-8f45a-default-rtdb.firebaseio.com",
   projectId: "mindbloom-8f45a",
   storageBucket: "mindbloom-8f45a.firebasestorage.app",
   messagingSenderId: "536234777565",
