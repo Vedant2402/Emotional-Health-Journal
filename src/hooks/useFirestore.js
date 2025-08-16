@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
 import {
-  ref,
-  push,
+  collection,
+  addDoc,
   query,
-  orderByChild,
-  equalTo,
-  onValue,
-  off,
-  serverTimestamp,
-  remove
-} from 'firebase/database';
-import { database, auth } from '../lib/firebase';
+  where,
+  orderBy,
+  onSnapshot,
+  deleteDoc,
+  doc,
+  serverTimestamp
+} from 'firebase/firestore';
+import { firestore } from '../lib/firebase';
 
 export const useFirestore = (userId) => {
   const [moodEntries, setMoodEntries] = useState([]);
@@ -19,84 +19,79 @@ export const useFirestore = (userId) => {
 
   // Subscribe to mood entries
   useEffect(() => {
-    if (!userId || !auth.currentUser) {
+    if (!userId) {
       setMoodEntries([]);
       setLoading(false);
       return;
     }
 
-    const moodsRef = ref(database, 'moods');
-    const moodQuery = query(moodsRef, orderByChild('userId'), equalTo(userId));
+    const moodsRef = collection(firestore, 'moods');
+    const moodQuery = query(
+      moodsRef,
+      where('userId', '==', userId),
+      orderBy('createdAt', 'desc')
+    );
 
-    const unsubscribe = onValue(moodQuery, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        const entries = Object.keys(data).map(key => ({
-          id: key,
-          ...data[key]
-        })).sort((a, b) => {
-          // Sort by createdAt timestamp (most recent first)
-          const aTime = a.createdAt || 0;
-          const bTime = b.createdAt || 0;
-          return bTime - aTime;
-        });
+    const unsubscribe = onSnapshot(moodQuery, 
+      (snapshot) => {
+        const entries = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+          // Convert Firestore timestamp to ISO string for consistency
+          date: doc.data().date || doc.data().createdAt?.toDate()?.toISOString() || new Date().toISOString()
+        }));
         setMoodEntries(entries);
-      } else {
+        setLoading(false);
+      },
+      (error) => {
+        console.error('Error fetching mood entries:', error);
         setMoodEntries([]);
+        setLoading(false);
       }
-      setLoading(false);
-    }, (error) => {
-      console.error('Error fetching mood entries:', error);
-      setMoodEntries([]);
-      setLoading(false);
-    });
+    );
 
-    return () => off(moodQuery, 'value', unsubscribe);
+    return unsubscribe;
   }, [userId]);
 
   // Subscribe to journal entries
   useEffect(() => {
-    if (!userId || !auth.currentUser) {
+    if (!userId) {
       setJournalEntries([]);
-      setLoading(false);
       return;
     }
 
-    const journalsRef = ref(database, 'journals');
-    const journalQuery = query(journalsRef, orderByChild('userId'), equalTo(userId));
+    const journalsRef = collection(firestore, 'journals');
+    const journalQuery = query(
+      journalsRef,
+      where('userId', '==', userId),
+      orderBy('createdAt', 'desc')
+    );
 
-    const unsubscribe = onValue(journalQuery, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        const entries = Object.keys(data).map(key => ({
-          id: key,
-          ...data[key]
-        })).sort((a, b) => {
-          // Sort by createdAt timestamp (most recent first)
-          const aTime = a.createdAt || 0;
-          const bTime = b.createdAt || 0;
-          return bTime - aTime;
-        });
+    const unsubscribe = onSnapshot(journalQuery,
+      (snapshot) => {
+        const entries = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+          // Convert Firestore timestamp to ISO string for consistency
+          date: doc.data().date || doc.data().createdAt?.toDate()?.toISOString() || new Date().toISOString()
+        }));
         setJournalEntries(entries);
-      } else {
+      },
+      (error) => {
+        console.error('Error fetching journal entries:', error);
         setJournalEntries([]);
       }
-      setLoading(false);
-    }, (error) => {
-      console.error('Error fetching journal entries:', error);
-      setJournalEntries([]);
-      setLoading(false);
-    });
+    );
 
-    return () => off(journalQuery, 'value', unsubscribe);
+    return unsubscribe;
   }, [userId]);
 
   const addMoodEntry = async (entry) => {
     if (!userId) return { success: false, error: 'User not authenticated' };
 
     try {
-      const moodsRef = ref(database, 'moods');
-      await push(moodsRef, {
+      const moodsRef = collection(firestore, 'moods');
+      await addDoc(moodsRef, {
         ...entry,
         userId,
         createdAt: serverTimestamp()
@@ -112,8 +107,8 @@ export const useFirestore = (userId) => {
     if (!userId) return { success: false, error: 'User not authenticated' };
 
     try {
-      const entryRef = ref(database, `moods/${entryId}`);
-      await remove(entryRef);
+      const entryRef = doc(firestore, 'moods', entryId);
+      await deleteDoc(entryRef);
       return { success: true };
     } catch (error) {
       console.error('Error deleting mood entry:', error);
@@ -125,8 +120,8 @@ export const useFirestore = (userId) => {
     if (!userId) return { success: false, error: 'User not authenticated' };
 
     try {
-      const journalsRef = ref(database, 'journals');
-      await push(journalsRef, {
+      const journalsRef = collection(firestore, 'journals');
+      await addDoc(journalsRef, {
         ...entry,
         userId,
         createdAt: serverTimestamp()
@@ -142,8 +137,8 @@ export const useFirestore = (userId) => {
     if (!userId) return { success: false, error: 'User not authenticated' };
 
     try {
-      const entryRef = ref(database, `journals/${entryId}`);
-      await remove(entryRef);
+      const entryRef = doc(firestore, 'journals', entryId);
+      await deleteDoc(entryRef);
       return { success: true };
     } catch (error) {
       console.error('Error deleting journal entry:', error);

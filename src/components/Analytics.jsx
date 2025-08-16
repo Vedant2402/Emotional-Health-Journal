@@ -139,7 +139,7 @@ export default function Analytics() {
         
         {/* Debug info - remove this in production */}
         <div className="text-xs text-gray-400 bg-gray-50 rounded-lg p-2">
-          Debug: {moodEntries.length} mood entries, {journalEntries.length} journal entries loaded
+          Your Progress: {moodEntries.length} mood check-ins, {journalEntries.length} journal entries
         </div>
       </div>
 

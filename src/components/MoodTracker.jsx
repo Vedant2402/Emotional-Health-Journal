@@ -197,12 +197,6 @@ export default function MoodTracker() {
       )}
 
       {/* Debug Info - Shows current data state */}
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-xs sm:text-sm text-blue-800">
-        <strong>Debug Info:</strong> {moodEntries.length} mood entries loaded
-        {moodEntries.length > 0 && (
-          <span> | Latest: {moodEntries[0]?.mood?.label} on {formatDate(moodEntries[0]?.date)}</span>
-        )}
-      </div>
 
       <div className="grid xl:grid-cols-3 gap-6 lg:gap-8">
         {/* Left Column - Mood Tracker */}

@@ -22,7 +22,7 @@ export const useAuth = () => {
         setUser({
           id: firebaseUser.uid,
           email: firebaseUser.email || '',
-          name: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || 'User'
+          name: firebaseUser.displayName || firebaseUser.email?.split('@')[0] || 'Patient'
         });
       } else {
         setUser(null);
@@ -35,26 +35,41 @@ export const useAuth = () => {
 
   const signUp = async (email, password, name) => {
     try {
+      setLoading(true);
+      
       // Create user account
       const result = await createUserWithEmailAndPassword(auth, email, password);
       
       // Update user profile with display name
-      await updateProfile(result.user, { displayName: name });
+      await updateProfile(result.user, { 
+        displayName: name || email.split('@')[0] 
+      });
       
       return { success: true };
     } catch (error) {
       console.error('Sign up error:', error);
       return { success: false, error: error.message };
+    } finally {
+      setLoading(false);
     }
   };
 
   const signIn = async (email, password) => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      setLoading(true);
+      
+      // Ensure email and password are provided
+      if (!email || !password) {
+        return { success: false, error: 'Please enter both email and password' };
+      }
+
+      await signInWithEmailAndPassword(auth, email.trim(), password);
       return { success: true };
     } catch (error) {
       console.error('Sign in error:', error);
       return { success: false, error: error.message };
+    } finally {
+      setLoading(false);
     }
   };
 

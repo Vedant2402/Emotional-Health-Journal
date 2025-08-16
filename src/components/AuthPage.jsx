@@ -51,25 +51,25 @@ export default function AuthPage() {
   };
 
   const getFirebaseErrorMessage = (error) => {
-    if (error.includes('invalid-credential') || error.includes('user-not-found') || error.includes('wrong-password')) {
-      return 'Hmm, those credentials don\'t look right. Double-check your email and password! 🤔';
+    if (error.includes('invalid-credential') || error.includes('user-not-found') || error.includes('wrong-password') || error.includes('invalid-login-credentials')) {
+      return 'Please check your email and password. If you\'re new, try creating an account first! 🌱';
     }
     if (error.includes('email-already-in-use')) {
-      return 'This email is already part of our community! Try signing in instead. 😊';
+      return 'This email already has an account. Please sign in instead! 😊';
     }
     if (error.includes('weak-password')) {
-      return 'Let\'s make that password a bit stronger - at least 6 characters! 💪';
+      return 'Please choose a stronger password (at least 6 characters) for your privacy! 💪';
     }
     if (error.includes('invalid-email')) {
-      return 'That email format doesn\'t look quite right. Mind checking it? 📧';
+      return 'Please enter a valid email address! 📧';
     }
     if (error.includes('too-many-requests')) {
-      return 'Whoa there! Too many attempts. Take a breather and try again in a moment. ☕';
+      return 'Too many attempts. Please wait a moment and try again. ☕';
     }
     if (error.includes('network-request-failed')) {
-      return 'Looks like there\'s a connection hiccup. Check your internet and try again! 🌐';
+      return 'Connection issue. Please check your internet and try again! 🌐';
     }
-    return 'Something unexpected happened. Let\'s try that again! ✨';
+    return 'Something went wrong. Please try again! ✨';
   };
 
   const handleSubmit = async (e) => {
